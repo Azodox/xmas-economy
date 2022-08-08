@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'com.github.johnrengelman.shadow'
+}
+
+group parent.group
+version parent.version
+
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = 17
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    shadow 'dev.morphia.morphia:morphia-core:2.2.7'
+    api 'net.kyori:adventure-text-minimessage:4.11.0'
+    api 'com.google.guava:guava:31.1-jre'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+}

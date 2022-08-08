@@ -1,0 +1,56 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow'
+}
+
+group parent.group
+version parent.version
+
+def moduleName = parent.name + "-paper"
+
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = 17
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/releases/' }
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+    implementation 'com.github.DevNatan:inventory-framework:0ab653e5d5'
+    implementation project(":api")
+    compileOnly 'fr.olten:xmas-jobs-api:0.1.1'
+    compileOnly 'io.github.azodox:accountsystem-api:0.6.5-SNAPSHOT'
+    compileOnly ('org.spigotmc:spigot:1.19-R0.1-SNAPSHOT'){
+        exclude group: 'org.spigotmc', module: 'spigot-api'
+    }
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT'
+    shadow 'dev.morphia.morphia:morphia-core:2.2.7'
+}
+
+libsDirName = "D:\\Velocity\\xmas\\plugins"
+
+shadowJar {
+    archiveClassifier.set('')
+    archivesBaseName = moduleName
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+}
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+    duplicatesStrategy = 'include'
+}

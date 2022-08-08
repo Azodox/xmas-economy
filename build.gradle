@@ -1,0 +1,10 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group 'fr.olten'
+version '0.1.1'
+
+compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = 17
