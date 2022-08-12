@@ -1,7 +1,6 @@
 package fr.olten.economy.bank;
 
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Id;
+import dev.morphia.annotations.*;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 
@@ -9,6 +8,9 @@ import java.util.Map;
 import java.util.UUID;
 
 @Entity(value = "banks", discriminator = "bank")
+@Indexes({
+        @Index(fields = @Field("name"), options = @IndexOptions(unique = true)),
+})
 public class Bank {
 
     @Id
