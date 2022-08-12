@@ -8,6 +8,5 @@ package fr.olten.economy.bank.transaction;
  */
 public interface Transaction<S, R> {
 
-    void take(S sender, long amount);
-    void give(R receiver, long amount);
+    TransactionResult execute(S sender, R receiver, double amount);
 }
