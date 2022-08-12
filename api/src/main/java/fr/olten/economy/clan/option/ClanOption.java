@@ -1,4 +1,4 @@
-package fr.olten.xmas.clan.option;
+package fr.olten.economy.clan.option;
 
 import lombok.Getter;
 

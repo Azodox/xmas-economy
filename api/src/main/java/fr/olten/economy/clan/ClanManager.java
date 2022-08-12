@@ -1,4 +1,4 @@
-package fr.olten.xmas.clan;
+package fr.olten.economy.clan;
 
 import com.google.common.collect.ImmutableList;
 import com.mongodb.client.result.UpdateResult;
@@ -6,7 +6,7 @@ import dev.morphia.Datastore;
 import dev.morphia.query.Query;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import fr.olten.xmas.clan.option.ClanOption;
+import fr.olten.economy.clan.option.ClanOption;
 import org.bson.types.ObjectId;
 
 import java.util.List;

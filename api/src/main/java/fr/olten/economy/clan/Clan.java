@@ -1,7 +1,7 @@
-package fr.olten.xmas.clan;
+package fr.olten.economy.clan;
 
 import dev.morphia.annotations.*;
-import fr.olten.xmas.clan.option.ClanOption;
+import fr.olten.economy.clan.option.ClanOption;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
