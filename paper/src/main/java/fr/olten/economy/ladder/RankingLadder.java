@@ -1,6 +1,6 @@
-package fr.olten.xmas.ladder;
+package fr.olten.economy.ladder;
 
-import fr.olten.xmas.clan.Clan;
+import fr.olten.economy.clan.Clan;
 
 import java.util.Random;
 

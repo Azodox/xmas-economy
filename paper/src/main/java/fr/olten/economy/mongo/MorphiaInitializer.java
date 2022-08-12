@@ -1,4 +1,4 @@
-package fr.olten.xmas.mongo;
+package fr.olten.economy.mongo;
 
 import com.mongodb.client.MongoClient;
 import dev.morphia.Datastore;

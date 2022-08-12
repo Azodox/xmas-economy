@@ -1,4 +1,4 @@
-package fr.olten.xmas.util;
+package fr.olten.economy.util;
 
 import com.google.gson.Gson;
 import org.apache.commons.lang3.Validate;

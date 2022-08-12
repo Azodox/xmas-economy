@@ -1,7 +1,7 @@
 name: Economy
 version: @version@
 author: Azodox_
-main: fr.olten.xmas.Economy
+main: fr.olten.economy.Economy
 api-version: 1.19
 softdepend:
   - AccountSystem

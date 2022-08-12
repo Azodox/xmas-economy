@@ -1,8 +1,8 @@
-package fr.olten.xmas.view;
+package fr.olten.economy.view;
 
-import fr.olten.xmas.clan.Clan;
-import fr.olten.xmas.ladder.RankingLadder;
-import fr.olten.xmas.util.ItemBuilder;
+import fr.olten.economy.clan.Clan;
+import fr.olten.economy.ladder.RankingLadder;
+import fr.olten.economy.util.ItemBuilder;
 import me.saiintbrisson.minecraft.View;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;

@@ -1,13 +1,13 @@
-package fr.olten.xmas;
+package fr.olten.economy;
 
 import co.aikar.commands.PaperCommandManager;
 import dev.morphia.Datastore;
-import fr.olten.xmas.clan.ClanManager;
-import fr.olten.xmas.clan.option.ClanOption;
-import fr.olten.xmas.commands.ClanCommand;
-import fr.olten.xmas.commands.EconomyCommand;
-import fr.olten.xmas.mongo.Mongo;
-import fr.olten.xmas.mongo.MorphiaInitializer;
+import fr.olten.economy.clan.ClanManager;
+import fr.olten.economy.clan.option.ClanOption;
+import fr.olten.economy.commands.ClanCommand;
+import fr.olten.economy.commands.EconomyCommand;
+import fr.olten.economy.mongo.Mongo;
+import fr.olten.economy.mongo.MorphiaInitializer;
 import lombok.Getter;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.plugin.java.JavaPlugin;

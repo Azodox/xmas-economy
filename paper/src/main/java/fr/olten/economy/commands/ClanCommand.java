@@ -1,12 +1,12 @@
-package fr.olten.xmas.commands;
+package fr.olten.economy.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import dev.morphia.query.experimental.updates.UpdateOperators;
-import fr.olten.xmas.Economy;
-import fr.olten.xmas.clan.Clan;
-import fr.olten.xmas.clan.option.ClanOption;
-import fr.olten.xmas.view.ClanView;
+import fr.olten.economy.Economy;
+import fr.olten.economy.clan.Clan;
+import fr.olten.economy.clan.option.ClanOption;
+import fr.olten.economy.view.ClanView;
 import me.saiintbrisson.minecraft.ViewFrame;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;

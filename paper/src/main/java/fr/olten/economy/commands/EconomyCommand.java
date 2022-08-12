@@ -1,4 +1,4 @@
-package fr.olten.xmas.commands;
+package fr.olten.economy.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
