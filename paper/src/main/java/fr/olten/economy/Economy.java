@@ -2,6 +2,8 @@ package fr.olten.economy;
 
 import co.aikar.commands.PaperCommandManager;
 import dev.morphia.Datastore;
+import fr.olten.economy.bank.BankManager;
+import fr.olten.economy.bank.PaperBankManager;
 import fr.olten.economy.clan.ClanManager;
 import fr.olten.economy.clan.option.ClanOption;
 import fr.olten.economy.commands.ClanCommand;
@@ -10,6 +12,7 @@ import fr.olten.economy.mongo.Mongo;
 import fr.olten.economy.mongo.MorphiaInitializer;
 import lombok.Getter;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -19,6 +22,7 @@ public class Economy extends JavaPlugin {
 
     private @Getter Datastore datastore;
     private @Getter ClanManager clanManager;
+    private @Getter PaperBankManager bankManager;
 
     private @Getter final Map<UUID, ArmorStand> belowNameStands = new HashMap<>();
 
@@ -34,6 +38,9 @@ public class Economy extends JavaPlugin {
         );
         this.datastore = new MorphiaInitializer(this.getClass(), mongo.getMongoClient(), "xmas", new String[]{"fr.olten.xmas.clan"}).getDatastore();
         this.clanManager = new ClanManager(this.datastore);
+        this.bankManager = new PaperBankManager(this.datastore);
+
+        this.getServer().getServicesManager().register(BankManager.class, this.bankManager, this, ServicePriority.Normal);
 
         var commandManager = new PaperCommandManager(this);
         commandManager.getCommandCompletions().registerCompletion("hex", c -> {
