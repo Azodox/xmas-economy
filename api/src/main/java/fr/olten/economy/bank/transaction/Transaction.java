@@ -1,5 +1,7 @@
 package fr.olten.economy.bank.transaction;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Represents a transaction from a sender to a receiver.<br>
  * Usually, a transaction is made between two banks accounts.
@@ -8,5 +10,5 @@ package fr.olten.economy.bank.transaction;
  */
 public interface Transaction<S, R> {
 
-    TransactionResult execute(S sender, R receiver, double amount);
+    TransactionResult execute(@NotNull S sender, @NotNull R receiver, double amount);
 }
