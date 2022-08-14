@@ -6,6 +6,7 @@ import fr.olten.economy.bank.BankBalanceManager;
 import fr.olten.economy.bank.account.BankAccount;
 import fr.olten.economy.bank.account.PaperBankAccountManager;
 import fr.olten.economy.bank.transaction.TransactionResult;
+import org.jetbrains.annotations.NotNull;
 
 public class PaperPurchase<S extends BankAccount, R extends BankAccount, B extends Bank> implements Purchase<S, R, B> {
 
@@ -16,7 +17,8 @@ public class PaperPurchase<S extends BankAccount, R extends BankAccount, B exten
     }
 
     @Override
-    public PurchaseResult purchase(S sender, R receiver, B bank, double amount, double taxesInPercentage) {
+    public PurchaseResult purchase(@NotNull S sender, @NotNull R receiver, @NotNull B bank, double amount,
+                                   double taxesInPercentage) {
         var senderManager = new PaperBankAccountManager(datastore, sender);
         var amountAfterTaxes = (amount / 100) * taxesInPercentage;
         var amountDelta = amount - amountAfterTaxes;
