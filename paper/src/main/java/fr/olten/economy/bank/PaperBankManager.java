@@ -28,8 +28,14 @@ public class PaperBankManager implements BankManager {
     }
 
     @Override
+    public Bank addBank(Bank bank) {
+        return datastore.save(bank);
+    }
+
+    @Override
     public BankAccount addAccount(Bank bank, BankAccount account) {
         bank.getAccounts().put(account.getOwner(), account.get_id());
+        datastore.save(account);
         datastore.merge(bank);
         return account;
     }
@@ -37,6 +43,11 @@ public class PaperBankManager implements BankManager {
     @Override
     public BankAccount getAccount(UUID uuid) {
         return datastore.find(BankAccount.class).filter(Filters.eq("owner", uuid)).first();
+    }
+
+    @Override
+    public BankAccount getAccount(ObjectId _id) {
+        return datastore.find(BankAccount.class).filter(Filters.eq("_id", _id)).first();
     }
 
     @Override
