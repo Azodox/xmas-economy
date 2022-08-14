@@ -1,13 +1,15 @@
 package fr.olten.economy.bank.account;
 
-import dev.morphia.annotations.Entity;
-import dev.morphia.annotations.Id;
+import dev.morphia.annotations.*;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 
 import java.util.UUID;
 
 @Entity(value = "bank_accounts", discriminator = "bank_account")
+@Indexes({
+        @Index(fields = @Field("owner"), options = @IndexOptions(unique = true)),
+})
 public class BankAccount {
 
     @Id
