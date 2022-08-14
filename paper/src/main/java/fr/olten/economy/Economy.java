@@ -2,8 +2,10 @@ package fr.olten.economy;
 
 import co.aikar.commands.PaperCommandManager;
 import dev.morphia.Datastore;
+import fr.olten.economy.bank.Bank;
 import fr.olten.economy.bank.BankManager;
 import fr.olten.economy.bank.PaperBankManager;
+import fr.olten.economy.bank.account.BankAccount;
 import fr.olten.economy.clan.ClanManager;
 import fr.olten.economy.clan.option.ClanOption;
 import fr.olten.economy.commands.ClanCommand;
@@ -11,6 +13,7 @@ import fr.olten.economy.commands.EconomyCommand;
 import fr.olten.economy.mongo.Mongo;
 import fr.olten.economy.mongo.MorphiaInitializer;
 import lombok.Getter;
+import org.bson.types.ObjectId;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -67,9 +70,11 @@ public class Economy extends JavaPlugin {
             }
             return null;
         });
+        commandManager.getCommandContexts().registerContext(BankAccount.class, c -> this.bankManager.getAccount(new ObjectId(c.getFirstArg())));
+        commandManager.getCommandContexts().registerContext(Bank.class, c -> this.bankManager.getBank(new ObjectId(c.getFirstArg())));
 
         commandManager.registerCommand(new ClanCommand(this));
-        commandManager.registerCommand(new EconomyCommand());
+        commandManager.registerCommand(new EconomyCommand(this));
 
         getLogger().info("Enabled!");
     }
