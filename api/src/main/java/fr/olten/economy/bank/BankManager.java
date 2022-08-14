@@ -10,8 +10,10 @@ public interface BankManager {
 
     Bank getBank(String name);
     Bank getBank(ObjectId _id);
+    Bank addBank(Bank bank);
 
     BankAccount addAccount(Bank bank, BankAccount account);
     BankAccount getAccount(UUID uuid);
+    BankAccount getAccount(ObjectId _id);
     BankAccountManager manageAccount(BankAccount account);
 }
