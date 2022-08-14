@@ -4,17 +4,29 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.Default;
 import co.aikar.commands.annotation.Subcommand;
+import fr.olten.economy.Economy;
+import fr.olten.economy.bank.Bank;
+import fr.olten.economy.bank.account.BankAccount;
 import fr.olten.jobs.Job;
 import fr.olten.jobs.database.JobDatabaseManager;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.valneas.account.AccountSystemApi;
+import org.bson.types.ObjectId;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+
 @CommandAlias("economy")
 public class EconomyCommand extends BaseCommand {
+
+    private final Economy economy;
+
+    public EconomyCommand(Economy economy) {
+        this.economy = economy;
+    }
 
     @Default
     @Subcommand("show power")
@@ -54,5 +66,24 @@ public class EconomyCommand extends BaseCommand {
                         .append(Component.text(" » ").color(NamedTextColor.DARK_GRAY).decorate(TextDecoration.BOLD))
                         .append(Component.text("Votre pouvoir est ").color(NamedTextColor.YELLOW).decorate(TextDecoration.BOLD))
                         .append(jobPower.name()));
+    }
+
+    @Subcommand("purchase")
+    public void purchase(Player player, Bank bank, BankAccount bankAccount){
+        var bankManager = this.economy.getBankManager();
+        var sender = bankManager.getAccount(player.getUniqueId());
+        bankManager.manageAccount(bankAccount).purchase().purchase(sender, bankAccount, bank, 150, 20);
+    }
+
+    @Subcommand("create bank")
+    public void createBank(Player player, String name, String displayName, double balance){
+        this.economy.getBankManager().addBank(new Bank(ObjectId.get(), name, displayName, balance, new HashMap<>()));
+    }
+
+    @Subcommand("create account")
+    public void createAccount(Player player, double minBalance, double maxBalance, double balance){
+        var bankManager = this.economy.getBankManager();
+        var bank = bankManager.getBank(new ObjectId("62f91dcd6669d734f9dc755c"));
+        bankManager.addAccount(bank, new BankAccount(ObjectId.get(), bank.get_id(), player.getUniqueId(), minBalance, maxBalance, balance));
     }
 }
