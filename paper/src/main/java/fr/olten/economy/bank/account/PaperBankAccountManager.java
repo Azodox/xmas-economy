@@ -3,8 +3,11 @@ package fr.olten.economy.bank.account;
 import dev.morphia.Datastore;
 import dev.morphia.query.experimental.filters.Filters;
 import dev.morphia.query.experimental.updates.UpdateOperators;
+import fr.olten.economy.bank.BalanceType;
 import fr.olten.economy.bank.BalanceUpdateResult;
 import fr.olten.economy.bank.Bank;
+import fr.olten.economy.bank.conversion.Conversion;
+import fr.olten.economy.bank.conversion.RsToFlcConversion;
 import fr.olten.economy.bank.purchase.PaperPurchase;
 import fr.olten.economy.bank.purchase.Purchase;
 import fr.olten.economy.bank.transaction.PaperTransaction;
@@ -30,16 +33,22 @@ public class PaperBankAccountManager implements BankAccountManager {
         return new PaperPurchase<>(this.datastore);
     }
 
-    public boolean increaseBalanceWouldFail(double amount) {
-        return this.account.getBalance() + amount > this.account.getMaxBalance();
+    @Override
+    public Conversion conversion() {
+        return new RsToFlcConversion();
     }
 
-    public boolean decreaseBalanceWouldFail(double amount) {
-        return this.account.getBalance() - amount < this.account.getMinBalance();
+    public boolean increaseBalanceWouldFail(BalanceType type, double amount) {
+        return this.account.getBalance(type) + amount > this.account.getMaxBalance(type);
     }
 
-    public BalanceUpdateResult increaseBalance(double amount) {
-        if (this.account.getBalance() + amount > this.account.getMaxBalance()) {
+    public boolean decreaseBalanceWouldFail(BalanceType type,  double amount) {
+        return this.account.getBalance(type) - amount < this.account.getMinBalance(type);
+    }
+
+    @Override
+    public BalanceUpdateResult increaseBalance(BalanceType type,  double amount) {
+        if (this.account.getBalance(type) + amount > this.account.getMaxBalance(type)) {
             return new BalanceUpdateResult(false, BalanceUpdateResult.BalanceUpdateFailedReason.OVER_MAX_BALANCE);
         }
 
@@ -48,8 +57,8 @@ public class PaperBankAccountManager implements BankAccountManager {
         return new BalanceUpdateResult(true, null);
     }
 
-    public BalanceUpdateResult decreaseBalance(double amount) {
-        if (this.account.getBalance() - amount < this.account.getMinBalance()) {
+    public BalanceUpdateResult decreaseBalance(BalanceType type, double amount) {
+        if (this.account.getBalance(type) - amount < this.account.getMinBalance(type)) {
             return new BalanceUpdateResult(false, BalanceUpdateResult.BalanceUpdateFailedReason.UNDER_MIN_BALANCE);
         }
 
