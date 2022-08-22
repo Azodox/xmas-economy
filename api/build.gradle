@@ -2,10 +2,14 @@ plugins {
     id 'java'
     id 'java-library'
     id 'com.github.johnrengelman.shadow'
+    id 'maven-publish'
+    id 'signing'
 }
 
 group parent.group
 version parent.version
+
+def moduleName = parent.name.toLowerCase() + '-' + name
 
 compileJava.options.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = 17
@@ -20,4 +24,23 @@ dependencies {
     api 'com.google.guava:guava:31.1-jre'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     compileOnly 'org.projectlombok:lombok:1.18.24'
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            groupId = group
+            artifactId = moduleName
+            version = version
+            project.shadow.component(publication)
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.shadow
 }
